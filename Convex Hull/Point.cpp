@@ -6,10 +6,11 @@ using namespace std;
 Point::Point(int x, int y){
   this -> x = x;
   this -> y = y;
+  this -> angle = 0.0;
 }
 
 string Point::toString(){
-  return "("+ to_string(this->x) + ","+ to_string(this->y) +")";
+  return "("+ to_string(this->x) + ","+ to_string(this->y) +")  "+to_string(this->angle)+"\n";
 }
 
   
@@ -49,6 +50,7 @@ bool Point::operator ==(const Point& p){
 
 // int main (){
 //   Point hola(1,2);
-//   cout << hola.toString();
+//   hola.setA(3.45);
+//   cout << hola.toString();  
 //   return 0;
 // }

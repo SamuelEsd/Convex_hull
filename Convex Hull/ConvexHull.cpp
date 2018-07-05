@@ -29,6 +29,7 @@ void renderPointSet(PointSet ps,SDL_Renderer* renderer){
   }
 }
 
+
 int main( int argc, char* args[] )
 {
   // The window we'll be rendering to
@@ -68,11 +69,46 @@ int main( int argc, char* args[] )
 	  }
 	}
 	
-	PointSet genPos(30, WIDTH, HEIGHT);
+	// Prints the white background and the blue points
+	//	PointSet genPos(5, WIDTH, HEIGHT);
+	PointSet genPos(1);
 	
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
 	renderPointSet(genPos, renderer);
+	SDL_RenderPresent(renderer);
+	SDL_Delay( 1000 );	  
+	cout << "First Delay: Points + white\n";
+
+	// Gets the min point and turns it red
+	Point m = genPos.getMin();
+	
+	if (filledCircleRGBA( renderer, m.getX(), m.getY(), 3, 255, 0, 0, 255 ) != 0) {
+	  printf( "A circle was not rendered! SDL_Error: %s\n", SDL_GetError() );
+	}
+	SDL_RenderPresent(renderer);
+	SDL_Delay( 1000 );	  
+	cout << "Second Delay: Min Point to Red\n";
+	
+	// Get a copy of the PointSet
+	vector<Point> setcopy(*(genPos.getPoints()));
+	vector<Point>* a = genPos.getConvexHull(&setcopy);
+
+        Point init = genPos.getMin();
+	int x1 = init.getX();
+	int y1 = init.getY();
+	
+	cout << "GGGG" << "\n\n";
+	for(int i = 0; i < (*a).size(); i++){
+	  cout << "GGGG2" << "\n\n";
+	  int x2 = (*a).at(i).getX();
+	  int y2 = (*a).at(i).getY();
+	  cout << "GGGG3" << "\n\n";
+	  if (lineRGBA( renderer, x1, y1, x2, y2, 0,0,0, 255 ) != 0) {
+	    printf( "A line was not rendered! SDL_Error: %s\n", SDL_GetError() );
+	  }
+	  SDL_RenderPresent(renderer);
+	  SDL_Delay( 500 );
+	  cout << i << " -esima Espera: Raya negra\n";	  
+	}
 	
 	// if (filledCircleRGBA( renderer, 500, 400, 3, 255, 0, 0, 255 ) != 0) {
 	//   printf( "A circle was not rendered! SDL_Error: %s\n", SDL_GetError() );

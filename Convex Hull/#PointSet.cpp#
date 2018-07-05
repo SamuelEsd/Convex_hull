@@ -136,7 +136,6 @@ std::vector<Point>* PointSet::getConvexHull(vector<Point>* setcopy){
     (this -> set).at(i).setA(ang);
     (*setcopy).at(i).setA(ang);
   }
-
   
   (*setcopy).erase((*setcopy).begin());
   sort((*setcopy).begin(),(*setcopy).end(),angLess);
